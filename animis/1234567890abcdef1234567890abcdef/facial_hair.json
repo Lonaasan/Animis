@@ -1,0 +1,56 @@
+{
+    "crouch": [
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "idle": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "jump": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "fall": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "run": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "sit": [
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "swim": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "swimIdle": [
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "walk": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ]
+}

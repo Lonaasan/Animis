@@ -1,0 +1,8 @@
+{
+  "author" : "^#00ffff;L^#25dbff;o^#49b7ff;n^#6e92ff;a^#926eff;a^#b749ff;s^#db25ff;a^#ff00ff;n^reset;",
+  "description" : "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset; Avatar Suite\n\nMultiplayer compatible\n\nSupport for OpenStarbound",
+  "friendlyName" : "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset;",
+  "name" : "animis",
+  "priority" : 100,
+  "version" : "0.0.1"
+}

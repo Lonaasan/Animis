@@ -1,0 +1,22 @@
+[
+	{	
+		"op": "add",
+		"path": "/deploymentConfig/scripts/-",
+		"value": "/animis/core/deployment.lua"
+	},
+	{
+		"op": "add",
+		"path": "/statusControllerSettings/primaryScriptSources/-",
+		"value": "/animis/core/primary.lua"
+	},
+	{
+		"op": "add",
+		"path": "/companionsConfig/scripts/-",
+		"value": "/animis/core/companion.lua"
+	},
+	{
+		"op": "add",
+		"path": "/genericScriptContexts/animis",
+		"value" : "/animis/core/generic.lua"
+	}
+]
