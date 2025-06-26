@@ -10,7 +10,7 @@ Animis can be quite difficult to understand at the beginning, so i will tell you
 For Animis to work, you have to edit and / or add files to it. The most important file for you to edit is:
 animis/playerconfig.json
 
-inside of there you currently find an exampleconfig:
+inside of there you currently find a exampleconfig:
 ```
 {
     "1234567890abcdef1234567890abcdef" : {
@@ -36,7 +36,7 @@ The UUID holds an object, in this case `facial_hair`, which is one of 5 layers y
 - facial_hair
 - facial_mask
 
-All of these have different benefits and usecases. For the example, you want to animate `facial_hair`. This is a layers that renders on top of your hair, so it would be perfect for ears or similar usecases!
+All of these have different benefits and usecases. For the example, you want to animate `facial_hair`. This is a layer that renders on top of your hair, so it would be perfect for ears or similar usecases!
 
 Inside `facial_hair`, you see different properties. We will go through them one by one.
 
