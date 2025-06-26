@@ -1,3 +1,4 @@
+![Animis Logo](https://github.com/Lonaasan/Animis/raw/ref/heads/main/logo.png)
 # Animis Avatar Suite
 Multiplayer compatible, Requires OpenStarbound
 
