@@ -12,6 +12,7 @@ local timers = {}
 local state = ""
 local data = {}
 local config = {}
+local idleNum = 1
 
 local directiveFuncs = {}
 local typeFuncs = {}
@@ -61,14 +62,23 @@ function init()
 end
 
 function update(dt)
-
-    local idleNum = 1
     if not config or not data then
         _update(dt)
         return
     end
 
     local newState = player.currentState()
+
+    if input.bind("animis", "loop1") then
+	    newState = "loop1"
+	elseif input.bind("animis", "loop2") then
+	    newState = "loop2"
+	elseif input.bind("animis", "looponce1") then
+	    newState = "looponce1"
+	elseif input.bind("animis", "looponce2") then
+	    newState = "looponce2"
+	end
+
 
     if state ~= newState then
         idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
@@ -113,13 +123,13 @@ function update(dt)
                         timers[key] = 1
                     end
                 end
-            elseif state == "walk" or state == "run" or state == "swim" then
-                if math.floor(timers[key]) > #value[state] then
-                    timers[key] = 1
-                end
-            elseif state == "jump" or state == "fall" then
+            elseif state == "jump" or state == "fall" or state:sub(1, 8) == "looponce" then
                 if math.floor(timers[key]) > #value[state] then
                     timers[key] = #value[state]
+                end
+            elseif state == "walk" or state == "run" or state == "swim" or state:sub(1, 4) == "loop" then
+                if math.floor(timers[key]) > #value[state] then
+                    timers[key] = 1
                 end
             end
             directiveFuncs[key](value[state][math.floor(timers[key])])

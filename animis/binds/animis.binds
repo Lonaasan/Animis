@@ -1,0 +1,20 @@
+{
+    "animis": {
+        "name": "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset;",
+        "bannerName": "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset; binds",
+        "binds": {
+            "loop1": {
+                "name": "Loop 1"
+            },
+            "loop2": {
+                "name": "Loop 2"
+            },
+            "looponce1": {
+                "name": "Loop once 1"
+            },
+            "looponce2": {
+                "name": "Loop once 2"
+            }
+        }
+    }
+}
