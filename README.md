@@ -1,6 +1,6 @@
 ![Animis Logo](https://github.com/Lonaasan/Animis/blob/main/logo.png)
 # Animis Avatar Suite
-Multiplayer compatible, Requires OpenStarbound
+Multiplayer compatible. Requires OpenStarbound
 
 This mod allows you to animate your characters directives based on the player-state (custom cases in progress)
 
