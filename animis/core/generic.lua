@@ -70,15 +70,18 @@ function update(dt)
     local newState = player.currentState()
 
     if input.bind("animis", "loop1") then
-	    newState = "loop1"
-	elseif input.bind("animis", "loop2") then
-	    newState = "loop2"
-	elseif input.bind("animis", "looponce1") then
-	    newState = "looponce1"
-	elseif input.bind("animis", "looponce2") then
-	    newState = "looponce2"
-	end
-
+        newState = "loop1"
+    elseif input.bind("animis", "loop2") then
+        newState = "loop2"
+    elseif input.bind("animis", "once1") then
+        newState = "once1"
+    elseif input.bind("animis", "once2") then
+        newState = "once2"
+    elseif input.bind("animis", "looponce1") then
+        newState = "looponce1"
+    elseif input.bind("animis", "looponce2") then
+        newState = "looponce2"
+    end
 
     if state ~= newState then
         idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
@@ -105,7 +108,8 @@ function update(dt)
                 timers[key] = math.min(config.MAX_FRAMES, timers[key] + dt * config.DEFAULT_ANIMATION_SPEED)
             end
 
-            if state == "crouch" and onetime == false or state == "swimIdle" and onetime == false then
+            if state == "crouch" and onetime == false or state == "swimIdle" and onetime == false or state:sub(1, 4) ==
+                "once" then
                 if state == "crouch" and not value.crouchIdleLoop or state == "swimIdle" and not value.swimIdleLoop then
                     onetime = true
                     timers[key] = 1

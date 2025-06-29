@@ -9,6 +9,12 @@
             "loop2": {
                 "name": "Loop 2"
             },
+            "once1": {
+                "name": "Once 1"
+            },
+            "once2": {
+                "name": "Once 2"
+            },
             "looponce1": {
                 "name": "Loop once 1"
             },
