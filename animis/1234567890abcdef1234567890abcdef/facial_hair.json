@@ -52,5 +52,21 @@
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "loop1": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "loop2": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "looponce1": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "looponce2": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
     ]
 }

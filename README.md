@@ -2,7 +2,7 @@
 # Animis Avatar Suite
 Multiplayer compatible. Requires OpenStarbound
 
-This mod allows you to animate your characters directives based on the player-state (custom cases in progress)
+This mod allows you to animate your characters directives based on the player-state (and bindable loop states!)
 
 ## How to Use
 Animis can be quite difficult to understand at the beginning, so i will tell you the basics:
@@ -109,12 +109,31 @@ Our example file has the base structure how such a layerfile can look like:
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "loop1": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "loop2": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "looponce1": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "looponce2": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
     ]
 }
 ```
 
 Inside, you see each state with an array of directives.
 You can add / remove directives or even delete a state if you dont want it.
+
+### Custom Loops!
+As you can see, this file has some states that are not present in vanilla. these are custom loop states! You can set up the binds for them in the mod binds of OpenSB
 
 To add directives, i would recommend using "Air Fryer" from Kae on Discord. You give it an image, and it creates a directive you can paste in, pretty easy!
 Link: https://discord.com/oauth2/authorize?client_id=1221620700222197840
