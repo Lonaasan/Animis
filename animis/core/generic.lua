@@ -7,9 +7,12 @@ end;
 local _uninit = uninit or function()
 end;
 
-local onetime = false
-local timers = {}
-local state = ""
+-- Layer variables
+
+local layerStates = {}
+local layerOneTimes = {}
+local layerTimers = {}
+
 local data = {}
 local config = {}
 local idleNum = 1
@@ -27,6 +30,12 @@ function init()
     if not config or not data then
         _init()
         return
+    end
+
+    for key, _ in pairs(data) do
+        layerStates[key] = ""
+        layerOneTimes[key] = false
+        layerTimers[key] = {}
     end
 
     directiveFuncs = {
@@ -67,76 +76,108 @@ function update(dt)
         return
     end
 
-    local newState = player.currentState()
-
-    if input.bind("animis", "loop1") then
-        newState = "loop1"
-    elseif input.bind("animis", "loop2") then
-        newState = "loop2"
-    elseif input.bind("animis", "once1") then
-        newState = "once1"
-    elseif input.bind("animis", "once2") then
-        newState = "once2"
-    elseif input.bind("animis", "looponce1") then
-        newState = "looponce1"
-    elseif input.bind("animis", "looponce2") then
-        newState = "looponce2"
-    end
-
-    if state ~= newState then
-        idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
-        onetime = false
-        for key, value in pairs(data) do
-            if value.enabled then
-                timers[key] = 1
-            end
-        end
-        state = newState
-    end
-
-    if onetime == true then
-        _update(dt)
-        return
-    end
+    local originalState = player.currentState()
+    local newState = originalState
 
     for key, value in pairs(data) do
-        if value.enabled and value[state] then
+        if value.enabled then
 
-            if value.speed then
-                timers[key] = math.min(config.MAX_FRAMES, timers[key] + dt * value.speed)
-            else
-                timers[key] = math.min(config.MAX_FRAMES, timers[key] + dt * config.DEFAULT_ANIMATION_SPEED)
+            if layerStates[key]:sub(1, 6) == "switch" then
+                newState = layerStates[key] -- continue
             end
 
-            if state == "crouch" and onetime == false or state == "swimIdle" and onetime == false or state:sub(1, 4) ==
-                "once" then
-                if state == "crouch" and not value.crouchIdleLoop or state == "swimIdle" and not value.swimIdleLoop then
-                    onetime = true
-                    timers[key] = 1
-                else
-                    if math.floor(timers[key]) > #value[state] then
-                        timers[key] = 1
-                    end
-                end
-            elseif state == "idle" and onetime == false then
-                if not value.idleLoop then
-                    onetime = true
-                    timers[key] = idleNum
-                else
-                    if math.floor(timers[key]) > #value[state] then
-                        timers[key] = 1
-                    end
-                end
-            elseif state == "jump" or state == "fall" or state:sub(1, 8) == "looponce" then
-                if math.floor(timers[key]) > #value[state] then
-                    timers[key] = #value[state]
-                end
-            elseif state == "walk" or state == "run" or state == "swim" or state:sub(1, 4) == "loop" then
-                if math.floor(timers[key]) > #value[state] then
-                    timers[key] = 1
+            if layerStates[key] == "random" then
+                if math.floor(layerTimers[key]) < #value[layerStates[key]] then
+                    newState = layerStates[key]
                 end
             end
-            directiveFuncs[key](value[state][math.floor(timers[key])])
+
+            if input.bindDown("animis", "switch1") and value.switch1 then
+                if layerStates[key] ~= "switch1" then
+                    newState = "switch1"
+                else
+                    newState = originalState
+                end
+            elseif input.bindDown("animis", "switch2") and value.switch2 then
+                if layerStates[key] ~= "switch2" then
+                    newState = "switch2"
+                else
+                    newState = originalState
+                end
+            elseif input.bind("animis", "loop1") and value.loop1 then
+                newState = "loop1"
+            elseif input.bind("animis", "loop2") and value.loop2 then
+                newState = "loop2"
+            elseif input.bind("animis", "once1") and value.once1 then
+                newState = "once1"
+            elseif input.bind("animis", "once2") and value.once2 then
+                newState = "once2"
+            elseif input.bind("animis", "looponce1") and value.looponce1 then
+                newState = "looponce1"
+            elseif input.bind("animis", "looponce2") and value.looponce2 then
+                newState = "looponce2"
+            elseif layerStates[key] ~= "random" and layerStates[key]:sub(1, 6) ~= "switch" then
+                newState = originalState -- Preserve original state in case of missing frames
+            end
+
+            if layerStates[key] ~= newState then
+
+                idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
+                layerTimers[key] = 1
+                layerOneTimes[key] = false
+                layerStates[key] = newState
+            end
+
+            if layerOneTimes[key] == false then
+
+                if value[layerStates[key]] then
+                    local speed = value.speed or config.ANIMATION_SPEED
+                    layerTimers[key] = math.min(config.MAX_FRAMES, layerTimers[key] + dt * speed)
+
+                    if layerStates[key] == "crouch" and layerOneTimes[key] == false or layerStates[key] == "swimIdle" and
+                        layerOneTimes[key] == false or layerStates[key]:sub(1, 4) == "once" then
+                        if layerStates[key] == "crouch" and not value.crouchIdleLoop or layerStates[key] == "swimIdle" and
+                            not value.swimIdleLoop then
+                            layerOneTimes[key] = true
+                            layerTimers[key] = 1
+                        else
+                            if math.floor(layerTimers[key]) > #value[layerStates[key]] then
+                                layerTimers[key] = 1
+                            end
+                        end
+                    elseif layerStates[key] == "idle" and layerOneTimes[key] == false then
+                        if not value.idleLoop then
+                            layerOneTimes[key] = true
+                            layerTimers[key] = idleNum
+                        else
+                            if math.floor(layerTimers[key]) > #value[layerStates[key]] then
+                                layerTimers[key] = 1
+                            end
+                        end
+                    elseif layerStates[key] == "jump" or layerStates[key] == "fall" or layerStates[key]:sub(1, 8) ==
+                        "looponce" or layerStates[key]:sub(1, 6) == "switch" then
+                        if math.floor(layerTimers[key]) > #value[layerStates[key]] then
+                            layerTimers[key] = #value[layerStates[key]]
+                        end
+                    elseif layerStates[key] == "walk" or layerStates[key] == "run" or layerStates[key] == "swim" or
+                        layerStates[key]:sub(1, 4) == "loop" then
+                        if math.floor(layerTimers[key]) > #value[layerStates[key]] then
+                            layerTimers[key] = 1
+                        end
+                    end
+
+                    -- Apply animation directive
+                    directiveFuncs[key](value[layerStates[key]][math.floor(layerTimers[key])])
+                end
+            end
+
+            if math.random(1, config.MAX_RAND_VALUE) <= config.MAX_RAND_TRIGGER and value.random and layerStates[key] ~=
+                "random" and layerStates[key]:sub(1, 4) ~= "loop" and layerStates[key]:sub(1, 4) ~= "once" and
+                layerStates[key]:sub(1, 6) == "switch" then
+                layerStates[key] = "random"
+                layerTimers[key] = 1
+                layerOneTimes[key] = false
+            end
         end
     end
 
