@@ -177,7 +177,6 @@ function update(dt)
                 layerStates[key] = "random"
                 layerTimers[key] = 1
                 layerOneTimes[key] = false
-                sb.logInfo("random!")
             end
         end
     end

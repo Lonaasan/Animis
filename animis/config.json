@@ -1,6 +1,6 @@
 {
     "MAX_FRAMES": 9,
     "ANIMATION_SPEED": 10,
-    "MAX_RAND_VALUE": 1000,
+    "MAX_RAND_VALUE": 5000,
     "MAX_RAND_TRIGGER": 1
 }
