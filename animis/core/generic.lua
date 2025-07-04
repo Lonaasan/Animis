@@ -173,10 +173,11 @@ function update(dt)
 
             if math.random(1, config.MAX_RAND_VALUE) <= config.MAX_RAND_TRIGGER and value.random and layerStates[key] ~=
                 "random" and layerStates[key]:sub(1, 4) ~= "loop" and layerStates[key]:sub(1, 4) ~= "once" and
-                layerStates[key]:sub(1, 6) == "switch" then
+                layerStates[key]:sub(1, 6) ~= "switch" then
                 layerStates[key] = "random"
                 layerTimers[key] = 1
                 layerOneTimes[key] = false
+                sb.logInfo("random!")
             end
         end
     end
