@@ -17,6 +17,7 @@ inside of there you currently find a exampleconfig:
         "facial_hair" : {
             "enabled": true,
             "idleLoop": false,
+            "loungeIdleLoop": false,
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
             "speed": 10,
@@ -42,6 +43,7 @@ Inside `facial_hair`, you see different properties. We will go through them one 
 
 - `enabled`: tells Animis if the directive should be used or not. Helpful for debug purposes.
 - `idleLoop`: if you want your idle animation to loop over multiple directives instead of staying at your choosen personality index, you can set this to `true`
+- `loungeIdleLoop`: if you want your lounge idle animation to loop over multiple directives, you can set this to `true`
 - `swimIdleLoop`: if you want your swimming idle animation to loop over multiple directives, you can set this to `true`
 - `crouchIdleLoop`: if you want your crouch animation to loop over multiple directives, you can set this to `true`
 - `speed`: the speed at which animis goes through your directives. Higher numbers are faster. You can also remove this property if you want to use the default speed in animis/config.json
@@ -88,7 +90,7 @@ Our example file has the base structure how such a layerfile can look like:
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
     ],
-    "sit": [
+    "lounge": [
         "?crop=0;0;1;1?multiply=0000?..."
     ],
     "swim": [
@@ -107,6 +109,14 @@ Our example file has the base structure how such a layerfile can look like:
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "switch1": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "switch2": [
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
     ],
@@ -131,6 +141,10 @@ Our example file has the base structure how such a layerfile can look like:
         "?crop=0;0;1;1?multiply=0000?..."
     ],
     "looponce2": [
+        "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "random": [
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
     ]
