@@ -127,11 +127,11 @@ function update(dt)
             end
 
             if layerStates[key] ~= newState then
-
                 idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
                 layerTimers[key] = 1
                 layerOneTimes[key] = false
                 layerStates[key] = newState
+
             end
 
             if layerOneTimes[key] == false then
@@ -140,9 +140,10 @@ function update(dt)
                     layerTimers[key] = math.min(config.MAX_FRAMES, layerTimers[key] + dt * layerConfig[key].speed)
 
                     if layerStates[key] == "crouch" and layerOneTimes[key] == false or layerStates[key] == "swimIdle" and
-                        layerOneTimes[key] == false or layerStates[key]:sub(1, 4) == "once" then
+                        layerOneTimes[key] == false or layerStates[key] == "lounge" and layerOneTimes[key] == false or
+                        layerStates[key]:sub(1, 4) == "once" then
                         if layerStates[key] == "crouch" and not value.crouchIdleLoop or layerStates[key] == "swimIdle" and
-                            not value.swimIdleLoop then
+                            not value.swimIdleLoop or layerStates[key] == "lounge" and not value.loungeLoop then
                             layerOneTimes[key] = true
                             layerTimers[key] = 1
                         else
