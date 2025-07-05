@@ -3,6 +3,8 @@
         "facial_hair" : {
             "enabled": true,
             "speed": 10,
+            "maxRandomValue": 2500,
+            "maxRandomTrigger": 1,
             "group": "hair",
             "type": "fem12"
         }
@@ -14,6 +16,8 @@
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
             "speed": 10,
+            "maxRandomValue": 5000,
+            "maxRandomTrigger": 1,
             "group": "hair",
             "type": "fem12"
         }

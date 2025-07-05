@@ -171,7 +171,10 @@ function update(dt)
                 end
             end
 
-            if math.random(1, config.MAX_RAND_VALUE) <= config.MAX_RAND_TRIGGER and value.random and layerStates[key] ~=
+            local maxRandomValue = value.maxRandomValue or config.MAX_RAND_VALUE
+            local maxRandomTrigger = value.maxRandomTrigger or config.MAX_RAND_TRIGGER
+
+            if math.random(1, maxRandomValue) <= maxRandomTrigger and value.random and layerStates[key] ~=
                 "random" and layerStates[key]:sub(1, 4) ~= "loop" and layerStates[key]:sub(1, 4) ~= "once" and
                 layerStates[key]:sub(1, 6) ~= "switch" then
                 layerStates[key] = "random"
