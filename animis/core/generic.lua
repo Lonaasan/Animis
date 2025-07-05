@@ -143,7 +143,7 @@ function update(dt)
                         layerOneTimes[key] == false or layerStates[key] == "lounge" and layerOneTimes[key] == false or
                         layerStates[key]:sub(1, 4) == "once" then
                         if layerStates[key] == "crouch" and not value.crouchIdleLoop or layerStates[key] == "swimIdle" and
-                            not value.swimIdleLoop or layerStates[key] == "lounge" and not value.loungeLoop then
+                            not value.swimIdleLoop or layerStates[key] == "lounge" and not value.loungeIdleLoop then
                             layerOneTimes[key] = true
                             layerTimers[key] = 1
                         else

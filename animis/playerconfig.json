@@ -12,7 +12,7 @@
         "facial_hair" : {
             "enabled": true,
             "idleLoop": false,
-            "loungeLoop": false,
+            "loungeIdleLoop": false,
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
             "speed": 10,
