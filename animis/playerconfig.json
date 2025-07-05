@@ -2,7 +2,6 @@
     "7e54a2352c631595cf02b718fece8e26" : {
         "facial_hair" : {
             "enabled": true,
-            "speed": 10,
             "maxRandomValue": 2500,
             "maxRandomTrigger": 1,
             "group": "hair",

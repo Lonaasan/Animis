@@ -12,6 +12,7 @@ end;
 local layerStates = {}
 local layerOneTimes = {}
 local layerTimers = {}
+local layerConfig = {}
 
 local data = {}
 local config = {}
@@ -32,10 +33,15 @@ function init()
         return
     end
 
-    for key, _ in pairs(data) do
+    for key, value in pairs(data) do
         layerStates[key] = ""
         layerOneTimes[key] = false
         layerTimers[key] = {}
+        layerConfig[key] = {
+            speed = value.speed or config.ANIMATION_SPEED,
+            maxRandomValue = value.maxRandomValue or config.MAX_RAND_VALUE,
+            maxRandomTrigger = value.maxRandomTrigger or config.MAX_RAND_TRIGGER
+        }
     end
 
     directiveFuncs = {
@@ -131,8 +137,7 @@ function update(dt)
             if layerOneTimes[key] == false then
 
                 if value[layerStates[key]] then
-                    local speed = value.speed or config.ANIMATION_SPEED
-                    layerTimers[key] = math.min(config.MAX_FRAMES, layerTimers[key] + dt * speed)
+                    layerTimers[key] = math.min(config.MAX_FRAMES, layerTimers[key] + dt * layerConfig[key].speed)
 
                     if layerStates[key] == "crouch" and layerOneTimes[key] == false or layerStates[key] == "swimIdle" and
                         layerOneTimes[key] == false or layerStates[key]:sub(1, 4) == "once" then
@@ -171,12 +176,9 @@ function update(dt)
                 end
             end
 
-            local maxRandomValue = value.maxRandomValue or config.MAX_RAND_VALUE
-            local maxRandomTrigger = value.maxRandomTrigger or config.MAX_RAND_TRIGGER
-
-            if math.random(1, maxRandomValue) <= maxRandomTrigger and value.random and layerStates[key] ~=
-                "random" and layerStates[key]:sub(1, 4) ~= "loop" and layerStates[key]:sub(1, 4) ~= "once" and
-                layerStates[key]:sub(1, 6) ~= "switch" then
+            if math.random(1, layerConfig[key].maxRandomValue) <= layerConfig[key].maxRandomTrigger and value.random and
+                layerStates[key] ~= "random" and layerStates[key]:sub(1, 4) ~= "loop" and layerStates[key]:sub(1, 4) ~=
+                "once" and layerStates[key]:sub(1, 6) ~= "switch" then
                 layerStates[key] = "random"
                 layerTimers[key] = 1
                 layerOneTimes[key] = false
