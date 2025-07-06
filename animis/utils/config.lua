@@ -9,7 +9,7 @@ animis_config = {}
 ---@return table
 function animis_config.loadConfig()
     local config = root.assetJson("/animis/config.json")
-    if not config or #config == 0 then return false end
+    if not config then return false end
     return config
 end
 
@@ -22,7 +22,7 @@ function animis_config.loadData(playerId)
 
     local playerConfig = root.assetJson("/animis/playerconfig.json")
 
-    if not playerConfig or #playerConfig == 0 or not playerConfig[playerId] then return false end
+    if not playerConfig or not playerConfig[playerId] then return false end
 
     local data = {}
 
