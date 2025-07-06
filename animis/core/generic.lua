@@ -92,6 +92,16 @@ function update(dt)
     local currentState = player.currentState()
     local newState = currentState
 
+    -- Input bindings
+    local switch1Down = input.bindDown("animis", "switch1")
+    local switch2Down = input.bindDown("animis", "switch2")
+    local loop1Active = input.bind("animis", "loop1")
+    local loop2Active = input.bind("animis", "loop2")
+    local once1Active = input.bind("animis", "once1")
+    local once2Active = input.bind("animis", "once2")
+    local looponce1Active = input.bind("animis", "looponce1")
+    local looponce2Active = input.bind("animis", "looponce2")
+
     for layerName, layer in pairs(data) do
         if layer.enabled then
 
@@ -105,41 +115,44 @@ function update(dt)
                 end
             end
 
-            if input.bindDown("animis", "switch1") and layer.switch1 then
+            if switch1Down and layer.switch1 then
                 if layer.state ~= "switch1" then
                     newState = "switch1"
                 else
                     newState = currentState
                 end
-            elseif input.bindDown("animis", "switch2") and layer.switch2 then
+            elseif switch2Down and layer.switch2 then
                 if layer.state ~= "switch2" then
                     newState = "switch2"
                 else
                     newState = currentState
                 end
-            elseif input.bind("animis", "loop1") and layer.loop1 then
+            elseif loop1Active and layer.loop1 then
                 newState = "loop1"
-            elseif input.bind("animis", "loop2") and layer.loop2 then
+            elseif loop2Active and layer.loop2 then
                 newState = "loop2"
-            elseif input.bind("animis", "once1") and layer.once1 then
+            elseif once1Active and layer.once1 then
                 newState = "once1"
-            elseif input.bind("animis", "once2") and layer.once2 then
+            elseif once2Active and layer.once2 then
                 newState = "once2"
-            elseif input.bind("animis", "looponce1") and layer.looponce1 then
+            elseif looponce1Active and layer.looponce1 then
                 newState = "looponce1"
-            elseif input.bind("animis", "looponce2") and layer.looponce2 then
+            elseif looponce2Active and layer.looponce2 then
                 newState = "looponce2"
             elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" then
                 newState = currentState -- Preserve original state in case of missing frames
             end
 
             if layer.state ~= newState then
-                idleNum = tonumber(player.personality().idle:match("idle.(%d+)"))
+                idleNum = tonumber(player.personality().idle:match("idle.(%d+)")) or 1
                 layer.time = 1
                 layer.oneTime = false
                 layer.state = newState
-
             end
+
+            local statePrefix4 = layer.state:sub(1, 4)
+            local statePrefix6 = layer.state:sub(1, 6)
+            local statePrefix8 = layer.state:sub(1, 8)
 
             if layer.oneTime == false then
 
@@ -147,7 +160,7 @@ function update(dt)
                     layer.time = math.min(layer.maxFrames, layer.time + dt * layer.speed)
 
                     if layer.state == "crouch" and layer.oneTime == false or layer.state == "swimIdle" and layer.oneTime ==
-                        false or layer.state == "lounge" and layer.oneTime == false or layer.state:sub(1, 4) == "once" then
+                        false or layer.state == "lounge" and layer.oneTime == false or statePrefix4 == "once" then
                         if layer.state == "crouch" and not layer.crouchIdleLoop or layer.state == "swimIdle" and
                             not layer.swimIdleLoop or layer.state == "lounge" and not layer.loungeIdleLoop then
                             layer.oneTime = true
@@ -166,13 +179,13 @@ function update(dt)
                                 layer.time = 1
                             end
                         end
-                    elseif layer.state == "jump" or layer.state == "fall" or layer.state:sub(1, 8) == "looponce" or
-                        layer.state:sub(1, 6) == "switch" then
+                    elseif layer.state == "jump" or layer.state == "fall" or statePrefix8 == "looponce" or statePrefix6 ==
+                        "switch" then
                         if math.floor(layer.time) > #layer[layer.state] then
                             layer.time = #layer[layer.state]
                         end
-                    elseif layer.state == "walk" or layer.state == "run" or layer.state == "swim" or
-                        layer.state:sub(1, 4) == "loop" then
+                    elseif layer.state == "walk" or layer.state == "run" or layer.state == "swim" or statePrefix4 ==
+                        "loop" then
                         if math.floor(layer.time) > #layer[layer.state] then
                             layer.time = 1
                         end
@@ -188,9 +201,8 @@ function update(dt)
                 end
             end
 
-            if math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger and layer.random and layer.state ~=
-                "random" and layer.state:sub(1, 4) ~= "loop" and layer.state:sub(1, 4) ~= "once" and
-                layer.state:sub(1, 6) ~= "switch" then
+            if layer.random and layer.state ~= "random" and statePrefix4 ~= "loop" and statePrefix4 ~= "once" and
+                statePrefix6 ~= "switch" and math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger then
                 layer.overwrittenState = layer.state
                 layer.state = "random"
                 layer.time = 1
