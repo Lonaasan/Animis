@@ -20,7 +20,10 @@ inside of there you currently find a exampleconfig:
             "loungeIdleLoop": false,
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
+            "maxFrames": 9,
             "speed": 10,
+            "maxRandomValue": 5000,
+            "maxRandomTrigger": 1,
             "group": "hair",
             "type": "fem12"
         }
@@ -46,7 +49,10 @@ Inside `facial_hair`, you see different properties. We will go through them one 
 - `loungeIdleLoop`: if you want your lounge idle animation to loop over multiple directives, you can set this to `true`
 - `swimIdleLoop`: if you want your swimming idle animation to loop over multiple directives, you can set this to `true`
 - `crouchIdleLoop`: if you want your crouch animation to loop over multiple directives, you can set this to `true`
-- `speed`: the speed at which animis goes through your directives. Higher numbers are faster. You can also remove this property if you want to use the default speed in animis/config.json
+- `maxFrames`: the max number of frames animis will loop through. Mostly just there to stop people from making too many frames. You can also remove this property if you want to use the default in animis/config.json
+- `speed`: the speed at which animis goes through your directives. Higher numbers are faster. You can also remove this property if you want to use the default in animis/config.json
+- `maxRandomValue`: the maximum value from 1 to x to generate numbers, which the random state will use for its likelyhood. You can also remove this property if you want to use the default in animis/config.json
+- `maxRandomTrigger`: the maximum value from 1 to x at which the random state will trigger. You can also remove this property if you want to use the default in animis/config.json
 - `group` & `type`: some layers equire a group and type to display properly. You can remove these properties for the `body` and `emote` directives, as they work without them
 
 Now you have set up your playerconfig, but where do you add in the directives for your layers?

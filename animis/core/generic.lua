@@ -31,6 +31,7 @@ function init()
         layer.state = ""
         layer.oneTime = false
         layer.timer = {}
+        layer.maxFrames = layer.maxFrames or config.MAX_FRAMES
         layer.speed = layer.speed or config.ANIMATION_SPEED
         layer.maxRandomValue = layer.maxRandomValue or config.MAX_RAND_VALUE
         layer.maxRandomTrigger = layer.maxRandomTrigger or config.MAX_RAND_TRIGGER
@@ -129,7 +130,7 @@ function update(dt)
             if layer.oneTime == false then
 
                 if layer[layer.state] then
-                    layer.timer = math.min(config.MAX_FRAMES, layer.timer + dt * layer.speed)
+                    layer.timer = math.min(layer.maxFrames, layer.timer + dt * layer.speed)
 
                     if layer.state == "crouch" and layer.oneTime == false or layer.state == "swimIdle" and layer.oneTime ==
                         false or layer.state == "lounge" and layer.oneTime == false or layer.state:sub(1, 4) == "once" then

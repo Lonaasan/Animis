@@ -15,6 +15,7 @@
             "loungeIdleLoop": false,
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
+            "maxFrames": 9,
             "speed": 10,
             "maxRandomValue": 5000,
             "maxRandomTrigger": 1,
