@@ -9,7 +9,9 @@ animis_config = {}
 ---@return table
 function animis_config.loadConfig()
     local config = root.assetJson("/animis/config.json")
-    if not config then return false end
+    if not config then
+        return false
+    end
     return config
 end
 
@@ -22,14 +24,18 @@ function animis_config.loadData(playerId)
 
     local playerConfig = root.assetJson("/animis/playerconfig.json")
 
-    if not playerConfig and not playerConfig[playerId] then return false end
+    if not playerConfig or not playerConfig[playerId] then
+        return false
+    end
 
     local data = {}
 
     for key, value in pairs(playerConfig[playerId]) do
-        local frames = root.assetJson(playerPath .. key ..".json")
+        local frames = root.assetJson(playerPath .. key .. ".json")
 
-        if not frames then return false end
+        if not frames then
+            return false
+        end
 
         for k, v in pairs(frames) do
             value[k] = v

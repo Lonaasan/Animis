@@ -2,7 +2,7 @@
     "7e54a2352c631595cf02b718fece8e26" : {
         "facial_hair" : {
             "enabled": true,
-            "maxRandomValue": 2500,
+            "maxRandomValue": 2000,
             "maxRandomTrigger": 1,
             "group": "hair",
             "type": "fem12"
@@ -15,6 +15,7 @@
             "loungeIdleLoop": false,
             "swimIdleLoop": false,
             "crouchIdleLoop": false,
+            "maxFrames": 9,
             "speed": 10,
             "maxRandomValue": 5000,
             "maxRandomTrigger": 1,

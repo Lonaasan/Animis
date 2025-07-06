@@ -3,6 +3,8 @@
   "description" : "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset; Avatar Suite\n\nMultiplayer compatible\n\nRequires OpenStarbound",
   "friendlyName" : "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset;",
   "name" : "animis",
+  "icon": "/animis/modicon.png",
+  "link" : "https://github.com/Lonaasan/Animis",
   "priority" : 100,
-  "version" : "2.0.1"
+  "version" : "2.2.3"
 }
