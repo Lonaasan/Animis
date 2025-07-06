@@ -1,4 +1,5 @@
 require("/animis/utils/config.lua");
+require("/animis/utils/client.lua");
 
 local _init = init or function()
 end;
@@ -17,6 +18,14 @@ local groupFuncs = {}
 
 function init()
 
+    local client = animis_client.getClient()
+
+    if client == "Neon" or client == "StarExtensions" or client == "Vanilla" then
+        sb.logInfo("\n--------------- [ANIMIS] ---------------\nAnimis is not supported.\nPlease use OpenStarbound or one of its derivatives.\nAnimis shutting down\n")
+        _init()
+        return
+    end
+
     config = animis_config.loadConfig()
 
     data = animis_config.loadData(player.uniqueId())
@@ -31,7 +40,7 @@ function init()
         layer.state = ""
         layer.previousState = ""
         layer.oneTime = false
-        layer.timer = {}
+        layer.timer = 0
         layer.maxFrames = layer.maxFrames or config.MAX_FRAMES
         layer.speed = layer.speed or config.ANIMATION_SPEED
         layer.maxRandomValue = layer.maxRandomValue or config.MAX_RAND_VALUE
