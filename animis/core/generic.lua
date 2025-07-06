@@ -20,8 +20,9 @@ function init()
 
     local client = animis_client.getClient()
 
-    if client == "Neon" or client == "StarExtensions" or client == "Vanilla" then
-        sb.logInfo("\n--------------- [ANIMIS] ---------------\nAnimis is not supported.\nPlease use OpenStarbound or one of its derivatives.\nAnimis shutting down\n")
+    if client ~= "OpenStarbound" and client ~= "XStarbound" then
+        sb.logInfo("\n--------------- [ANIMIS] ---------------\nAnimis is not supported.\n" ..
+                       "Please use OpenStarbound or one of its derivatives.\nAnimis shutting down\n")
         _init()
         return
     end
@@ -31,7 +32,8 @@ function init()
     data = animis_config.loadData(player.uniqueId())
 
     if not config or not data then
-        sb.logInfo("\n--------------- [ANIMIS] ---------------\nNo config or datafile found!\nPlease check if you have set up Animis for this player.\nAnimis shutting down\n")
+        sb.logInfo("\n--------------- [ANIMIS] ---------------\nNo config or datafile found!\n" ..
+                       "Please check if you have set up Animis for this player.\nAnimis shutting down\n")
         _init()
         return
     end

@@ -32,10 +32,10 @@ end
 ---Check if we are running in Vanilla
 ---@return boolean
 function animis_client.isVanilla()
-    return not animis_client.isNeon() and not animis_client.isStarExtensions() and
-               not animis_client.isOpenStarbound() and not animis_client.isXStarbound();
+    return
+        not animis_client.isNeon() and not animis_client.isStarExtensions() and not animis_client.isOpenStarbound() and
+            not animis_client.isXStarbound();
 end
-
 
 --- Get the client object for the current environment
 ---@return string
