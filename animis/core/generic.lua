@@ -29,6 +29,7 @@ function init()
 
     for _, layer in pairs(data) do
         layer.state = ""
+        layer.previousState = ""
         layer.oneTime = false
         layer.timer = {}
         layer.maxFrames = layer.maxFrames or config.MAX_FRAMES
@@ -85,7 +86,7 @@ function update(dt)
                 newState = layer.state -- continue
             end
 
-            if layer.state == "random" then
+            if layer.state == "random" and layer.previousState == newState then
                 if math.floor(layer.timer) < #layer[layer.state] then
                     newState = layer.state
                 end
@@ -172,6 +173,7 @@ function update(dt)
             if math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger and layer.random and layer.state ~=
                 "random" and layer.state:sub(1, 4) ~= "loop" and layer.state:sub(1, 4) ~= "once" and
                 layer.state:sub(1, 6) ~= "switch" then
+                layer.previousState = layer.state
                 layer.state = "random"
                 layer.timer = 1
                 layer.oneTime = false
