@@ -22,6 +22,7 @@ function init()
     data = animis_config.loadData(player.uniqueId())
 
     if not config or not data then
+        sb.logInfo("[ANIMIS]: No config or datafile found!\nPlease check if you have set up Animis for this player.\nAnimis shutting down")
         _init()
         return
     end
@@ -73,8 +74,8 @@ function update(dt)
         return
     end
 
-    local originalState = player.currentState()
-    local newState = originalState
+    local currentState = player.currentState()
+    local newState = currentState
 
     for layerName, layer in pairs(data) do
         if layer.enabled then
@@ -93,13 +94,13 @@ function update(dt)
                 if layer.state ~= "switch1" then
                     newState = "switch1"
                 else
-                    newState = originalState
+                    newState = currentState
                 end
             elseif input.bindDown("animis", "switch2") and layer.switch2 then
                 if layer.state ~= "switch2" then
                     newState = "switch2"
                 else
-                    newState = originalState
+                    newState = currentState
                 end
             elseif input.bind("animis", "loop1") and layer.loop1 then
                 newState = "loop1"
@@ -114,7 +115,7 @@ function update(dt)
             elseif input.bind("animis", "looponce2") and layer.looponce2 then
                 newState = "looponce2"
             elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" then
-                newState = originalState -- Preserve original state in case of missing frames
+                newState = currentState -- Preserve original state in case of missing frames
             end
 
             if layer.state ~= newState then
@@ -130,9 +131,8 @@ function update(dt)
                 if layer[layer.state] then
                     layer.timer = math.min(config.MAX_FRAMES, layer.timer + dt * layer.speed)
 
-                    if layer.state == "crouch" and layer.oneTime == false or layer.state == "swimIdle" and
-                        layer.oneTime == false or layer.state == "lounge" and layer.oneTime == false or
-                        layer.state:sub(1, 4) == "once" then
+                    if layer.state == "crouch" and layer.oneTime == false or layer.state == "swimIdle" and layer.oneTime ==
+                        false or layer.state == "lounge" and layer.oneTime == false or layer.state:sub(1, 4) == "once" then
                         if layer.state == "crouch" and not layer.crouchIdleLoop or layer.state == "swimIdle" and
                             not layer.swimIdleLoop or layer.state == "lounge" and not layer.loungeIdleLoop then
                             layer.oneTime = true
@@ -151,8 +151,8 @@ function update(dt)
                                 layer.timer = 1
                             end
                         end
-                    elseif layer.state == "jump" or layer.state == "fall" or layer.state:sub(1, 8) ==
-                        "looponce" or layer.state:sub(1, 6) == "switch" then
+                    elseif layer.state == "jump" or layer.state == "fall" or layer.state:sub(1, 8) == "looponce" or
+                        layer.state:sub(1, 6) == "switch" then
                         if math.floor(layer.timer) > #layer[layer.state] then
                             layer.timer = #layer[layer.state]
                         end
@@ -168,9 +168,9 @@ function update(dt)
                 end
             end
 
-            if math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger and layer.random and
-                layer.state ~= "random" and layer.state:sub(1, 4) ~= "loop" and layer.state:sub(1, 4) ~=
-                "once" and layer.state:sub(1, 6) ~= "switch" then
+            if math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger and layer.random and layer.state ~=
+                "random" and layer.state:sub(1, 4) ~= "loop" and layer.state:sub(1, 4) ~= "once" and
+                layer.state:sub(1, 6) ~= "switch" then
                 layer.state = "random"
                 layer.timer = 1
                 layer.oneTime = false
