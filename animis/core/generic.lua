@@ -22,7 +22,7 @@ function init()
     data = animis_config.loadData(player.uniqueId())
 
     if not config or not data then
-        sb.logInfo("[ANIMIS]: No config or datafile found!\nPlease check if you have set up Animis for this player.\nAnimis shutting down")
+        sb.logInfo("\n--------------- [ANIMIS] ---------------\nNo config or datafile found!\nPlease check if you have set up Animis for this player.\nAnimis shutting down\n")
         _init()
         return
     end
