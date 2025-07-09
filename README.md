@@ -80,10 +80,16 @@ Our example file has the base structure how such a layerfile can look like:
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?..."
     ],
+    "afterJump": [
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
     "fall": [
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
         "?crop=0;0;1;1?multiply=0000?...",
+        "?crop=0;0;1;1?multiply=0000?..."
+    ],
+    "afterFall": [
         "?crop=0;0;1;1?multiply=0000?..."
     ],
     "run": [

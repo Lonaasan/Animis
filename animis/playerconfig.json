@@ -1,13 +1,4 @@
 {
-    "7e54a2352c631595cf02b718fece8e26" : {
-        "facial_hair" : {
-            "enabled": true,
-            "maxRandomValue": 2000,
-            "maxRandomTrigger": 1,
-            "group": "hair",
-            "type": "fem12"
-        }
-    },
     "1234567890abcdef1234567890abcdef" : {
         "facial_hair" : {
             "enabled": true,

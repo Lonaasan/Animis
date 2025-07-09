@@ -115,6 +115,10 @@ function update(dt)
                 end
             end
 
+            if (layer.state == "afterJump" or layer.state == "afterFall") and layer.overwrittenState == newState then
+                newState = layer.state
+            end
+
             if switch1Down and layer.switch1 then
                 if layer.state ~= "switch1" then
                     newState = "switch1"
@@ -139,7 +143,7 @@ function update(dt)
                 newState = "looponce1"
             elseif looponce2Active and layer.looponce2 then
                 newState = "looponce2"
-            elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" then
+            elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" and layer.state:sub(1, 5) ~= "after" then
                 newState = currentState -- Preserve original state in case of missing frames
             end
 
@@ -182,10 +186,22 @@ function update(dt)
                     elseif layer.state == "jump" or layer.state == "fall" or statePrefix8 == "looponce" or statePrefix6 ==
                         "switch" then
                         if math.floor(layer.time) > #layer[layer.state] then
-                            layer.time = #layer[layer.state]
+                            if layer.state == "jump" and layer.afterJump then
+                                layer.overwrittenState = layer.state
+                                layer.state = "afterJump"
+                                layer.time = 1
+                                layer.oneTime = false
+                            elseif layer.state == "fall" and layer.afterFall then
+                                layer.overwrittenState = layer.state
+                                layer.state = "afterFall"
+                                layer.time = 1
+                                layer.oneTime = false
+                            else
+                                layer.time = #layer[layer.state]
+                            end
                         end
-                    elseif layer.state == "walk" or layer.state == "run" or layer.state == "swim" or statePrefix4 ==
-                        "loop" then
+                    elseif layer.state == "walk" or layer.state == "run" or layer.state == "swim" or layer.state ==
+                        "afterJump" or layer.state == "afterFall" or statePrefix4 == "loop" then
                         if math.floor(layer.time) > #layer[layer.state] then
                             layer.time = 1
                         end
