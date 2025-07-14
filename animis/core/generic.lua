@@ -90,7 +90,6 @@ function update(dt)
     end
 
     local currentState = player.currentState()
-    local newState = currentState
 
     -- Input bindings
     local switch1Down = input.bindDown("animis", "switch1")
@@ -101,8 +100,12 @@ function update(dt)
     local once2Active = input.bind("animis", "once2")
     local looponce1Active = input.bind("animis", "looponce1")
     local looponce2Active = input.bind("animis", "looponce2")
+    local fullloopActive = input.bind("animis", "fullloop")
 
     for layerName, layer in pairs(data) do
+
+        local newState = currentState
+
         if layer.enabled then
 
             if layer.state:sub(1, 6) == "switch" then
@@ -115,11 +118,31 @@ function update(dt)
                 end
             end
 
+            if layer.state == "afterfullloop" then
+                if math.floor(layer.time) < #layer[layer.state] then
+                    newState = layer.state
+                end
+            elseif layer.state == "fullloop" then
+                newState = layer.state
+            elseif layer.state == "beforefullloop" then
+                if math.floor(layer.time) < #layer[layer.state] then
+                    newState = layer.state
+                else
+                    newState = "fullloop"
+                end
+            end
+
             if (layer.state == "afterJump" or layer.state == "afterFall") and layer.overwrittenState == newState then
                 newState = layer.state
             end
 
-            if switch1Down and layer.switch1 then
+            if fullloopActive and layer.beforefullloop and layer.fullloop and layer.afterfullloop and newState ~=
+                "fullloop" and
+                (layer.state ~= "beforefullloop" or layer.state ~= "fullloop" or layer.state == "afterfullloop") then
+                newState = "beforefullloop"
+            elseif layer.state == "fullloop" and not fullloopActive then
+                newState = "afterfullloop"
+            elseif switch1Down and layer.switch1 then
                 if layer.state ~= "switch1" then
                     newState = "switch1"
                 else
@@ -143,7 +166,8 @@ function update(dt)
                 newState = "looponce1"
             elseif looponce2Active and layer.looponce2 then
                 newState = "looponce2"
-            elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" and layer.state:sub(1, 5) ~= "after" then
+            elseif layer.state ~= "random" and layer.state:sub(1, 6) ~= "switch" and layer.state:sub(1, 4) ~= "full" and
+                layer.state:sub(1, 5) ~= "after" and layer.state:sub(1, 6) ~= "before" and newState ~= "beforefullloop" then
                 newState = currentState -- Preserve original state in case of missing frames
             end
 
@@ -155,6 +179,7 @@ function update(dt)
             end
 
             local statePrefix4 = layer.state:sub(1, 4)
+            local statePrefix5 = layer.state:sub(1, 5)
             local statePrefix6 = layer.state:sub(1, 6)
             local statePrefix8 = layer.state:sub(1, 8)
 
@@ -201,7 +226,8 @@ function update(dt)
                             end
                         end
                     elseif layer.state == "walk" or layer.state == "run" or layer.state == "swim" or layer.state ==
-                        "afterJump" or layer.state == "afterFall" or statePrefix4 == "loop" then
+                        "afterJump" or layer.state == "afterFall" or layer.state == "beforefullloop" or layer.state ==
+                        "fullloop" or layer.state == "afterfullloop" or statePrefix4 == "loop" then
                         if math.floor(layer.time) > #layer[layer.state] then
                             layer.time = 1
                         end
@@ -218,7 +244,8 @@ function update(dt)
             end
 
             if layer.random and layer.state ~= "random" and statePrefix4 ~= "loop" and statePrefix4 ~= "once" and
-                statePrefix6 ~= "switch" and math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger then
+                statePrefix4 ~= "full" and statePrefix6 ~= "switch" and statePrefix6 ~= "before" and statePrefix5 ~=
+                "after" and math.random(1, layer.maxRandomValue) <= layer.maxRandomTrigger then
                 layer.overwrittenState = layer.state
                 layer.state = "random"
                 layer.time = 1

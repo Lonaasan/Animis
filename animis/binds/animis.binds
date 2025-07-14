@@ -26,6 +26,9 @@
             },
             "looponce2": {
                 "name": "Loop once 2"
+            },
+            "fullloop": {
+                "name": "Loop with in/outro"
             }
         }
     }
