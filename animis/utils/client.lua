@@ -44,10 +44,12 @@ function animis_client.getClient()
         return "Neon";
     elseif animis_client.isStarExtensions() then
         return "StarExtensions";
+    elseif animis_client.isXStarbound() then
+        -- reverse order to circumvent XStarbound's disguise as OpenStarbound.
+        -- This way we check for xSB features, which are not in oSB.
+        return "XStarbound";
     elseif animis_client.isOpenStarbound() then
         return "OpenStarbound";
-    elseif animis_client.isXStarbound() then
-        return "XStarbound";
     else
         return "Vanilla";
     end

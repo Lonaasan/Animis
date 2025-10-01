@@ -27,6 +27,14 @@ function init()
         return
     end
 
+    if client == "XStarbound" then
+        sb.logInfo("\n--------------- [ANIMIS] ---------------\nXStarbound detected.\n" ..
+                       "Please be aware that Animis is not fully supported in XStarbound.\n" ..
+                       "If you encounter any issues, please report them to the XStarbound developers, " ..
+                       "we will dismiss any Bug reports from XStarbound users.\n" ..
+                       "Animis will continue to run, but no support will be provided for problems occurring on XStarbound.\n")
+    end
+
     config = animis_config.loadConfig()
 
     data = animis_config.loadData(player.uniqueId())
