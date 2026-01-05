@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "animations": {
+    "customrandom": {
+      "frames": ["custom1", "custom2", "custom3", "custom4", "custom5"],
+      "states": ["idle"],
+      "loop": true,
+      "priority": 0,
+      "triggers": [
+        {
+          "type": "random",
+          "chance": 0.02,
+          "checkInterval": 3.0
+        }
+      ],
+      "persist": false,
+      "interruptible": true,
+      "duration": 2.0
+    },
+    "custom": {
+      "frames": ["custom1", "custom2", "custom3", "custom4", "custom5"],
+      "states": ["idle"],
+      "loop": true,
+      "priority": 0,
+      "triggers": [
+        {
+          "type": "input",
+          "bind": "key1",
+          "mode": "toggle"
+        }
+      ],
+      "persist": true,
+      "interruptible": true,
+      "duration": 2.0,
+      "chainTo": "custom_loop"
+    },
+    "custom_loop": {
+      "frames": ["custom1", "custom2", "custom3", "custom4"],
+      "loop": true,
+      "chainTo": "custom_outro",
+      "internal": true
+    },
+    "custom_outro": {
+      "frames": ["custom1", "custom2", "custom3"],
+      "loop": false,
+      "internal": true
+    }
+  }
+}

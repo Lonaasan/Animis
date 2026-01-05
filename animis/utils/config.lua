@@ -31,10 +31,15 @@ function animis_config.loadData(playerId)
     local data = {}
 
     for key, value in pairs(playerConfig[playerId]) do
+        if value.enabled == false then
+            playerConfig[playerId][key] = nil
+            goto continue
+        end
         local frames = root.assetJson(playerPath .. key .. ".json")
 
         if not frames then
-            return false
+            playerConfig[playerId][key] = nil
+            goto continue
         end
 
         for k, v in pairs(frames) do
@@ -42,6 +47,7 @@ function animis_config.loadData(playerId)
         end
 
         data[key] = value
+        ::continue::
     end
 
     return data

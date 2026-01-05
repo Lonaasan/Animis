@@ -3,32 +3,32 @@
         "name": "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset;",
         "bannerName": "^#c323d1;A^#b21fd6;n^#9e1bdc;i^#8817e1;m^#7012e7;i^#550eec;s^reset; binds",
         "binds": {
-            "switch1": {
-                "name": "Switch 1"
+            "key1": {
+                "name": "Key 1"
             },
-            "switch2": {
-                "name": "Switch 2"
+            "key2": {
+                "name": "Key 2"
             },
-            "loop1": {
-                "name": "Loop 1"
+            "key3": {
+                "name": "Key 3"
             },
-            "loop2": {
-                "name": "Loop 2"
+            "key4": {
+                "name": "Key 4"
             },
-            "once1": {
-                "name": "Once 1"
+            "key5": {
+                "name": "Key 5"
             },
-            "once2": {
-                "name": "Once 2"
+            "key6": {
+                "name": "Key 6"
             },
-            "looponce1": {
-                "name": "Loop once 1"
+            "key7": {
+                "name": "Key 7"
             },
-            "looponce2": {
-                "name": "Loop once 2"
+            "key8": {
+                "name": "Key 8"
             },
-            "fullloop": {
-                "name": "Loop with in/outro"
+            "key9": {
+                "name": "Key 9"
             }
         }
     }
