@@ -800,5 +800,25 @@ function update(dt)
     end
 end
 
-function uninit()
+function uninit(dt)
+    -- remove pre / suffixes to avoid leaving them on after anims are removed
+    if not data then
+        return
+    end
+    local cachedPrefix = player.getProperty("animisPrefix", "")
+    local cachedSuffix = player.getProperty("animisSuffix", "")
+    player.setProperty("animisPrefix", "")
+    player.setProperty("animisSuffix", "")
+    local state = player.currentState()
+    local now = os.time()
+    if state == "idle" then
+        idleNum = tonumber(player.personality().idle:match("idle.(%d+)")) or idleNum
+    end
+    for layerName, layer in pairs(data) do
+        if layer.enabled ~= false and animationLookup[layerName] then
+            updateLayer(dt, layer, layerName, state, now, animationLookup[layerName])
+        end
+    end
+    player.setProperty("animisPrefix", cachedPrefix)
+    player.setProperty("animisSuffix", cachedSuffix)
 end
