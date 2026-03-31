@@ -800,7 +800,7 @@ function update(dt)
     end
 end
 
-function uninit(dt)
+function uninit()
     -- remove pre / suffixes to avoid leaving them on after anims are removed
     if not data then
         return
@@ -816,7 +816,7 @@ function uninit(dt)
     end
     for layerName, layer in pairs(data) do
         if layer.enabled ~= false and animationLookup[layerName] then
-            updateLayer(dt, layer, layerName, state, now, animationLookup[layerName])
+            updateLayer(0, layer, layerName, state, now, animationLookup[layerName])
         end
     end
     player.setProperty("animisPrefix", cachedPrefix)
